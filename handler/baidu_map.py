@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # coding:utf-8
-from optsql.dbpool import *
+from methods.dbpool import *
 
 import tornado.web
 import logging
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 import sys
 reload(sys)
@@ -13,13 +17,18 @@ log = logging.getLogger()
 
 class MapHandler(tornado.web.RequestHandler):
 
-    @with_database('MobileTraceRoute')
+    @with_database('mobile ip')
     def get(self):
-        # lst = ["python","www.itdiffer.com","qiwsir@gmail.com"]
-        # self.render("index.html", info=lst)
-        ret = self.db.query("select count(*) from landmark_wuhan")
-        print ret
-        self.render("baidu_map.html")
+        target_ip = "61.158.148.2"
+        where = {
+            'ip': target_ip
+        }
+        fields = ['ip', 'lat', 'lon']
+        ret = self.db.select("rtb_history", where=where, fields=fields)
+        rtb_history = [','.join([ip_ll['lon'], ip_ll['lat']]) for ip_ll in ret]
+        print "the number of point: ", len(rtb_history)
+        self.render("baidu_map.html", ip=target_ip, num=len(
+            rtb_history), points=json.dumps(rtb_history))
 
     def post(self):
         return

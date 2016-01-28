@@ -1,14 +1,16 @@
 #!/usr/bin/env python
-#coding:utf-8
+# coding:utf-8
 
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
 from handler.index import IndexHandler
+from handler.user import UserHandler
 from handler.baidu_map import MapHandler
 
-url=[
+url = [
     (r'/', IndexHandler),
+    (r'/user', UserHandler),
     (r'/map', MapHandler),
-    ]
+]
