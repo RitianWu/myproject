@@ -7,19 +7,21 @@ import tornado.httpserver
 import tornado.autoreload
 
 import sys
+import setting as setting_const
 
 from application import application
 from tornado.options import define, options
-define("port", default=8888, help="run on th given port", type=int)
+define("port", default=setting_const.SERVER_PORT,
+       help="run on th given port", type=int)
 
-from methods.dbpool import install
+from tools.dbpool import install
 DATABASE = {'mobile ip':  # connection name, used for getting connection from pool
             {'engine': 'mysql',      # db type, eg: mysql, sqlite
              'db': 'mobile ip',       # db table
              'host': '127.0.0.1',  # db host
              'port': 3306,        # db port
-             'user': 'hao',      # db user
-             'passwd': 'wh198910',  # db password
+             'user': 'root',      # db user
+             'passwd': 'wh492760804',  # db password
              'charset': 'utf8',  # db charset
              'conn': 10}          # db connections in pool
             }

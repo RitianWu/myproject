@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding:utf-8
-from methods.dbpool import *
+from tools.dbpool import *
 
 import tornado.web
 import logging
